@@ -10,22 +10,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
             
-            // You can use a service like EmailJS, FormSpree, or your own backend
-            // This example uses FormSpree which is simple to set up
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('message', message);
-            
-            // Replace 'your-formspree-endpoint' with your actual FormSpree endpoint
+            // Using FormSpree for form handling
             fetch('https://formspree.io/f/mdkeqwwv', {
                 method: 'POST',
-                body: formData,
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
+                }),
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
             .then(data => {
                 formStatus.textContent = 'Message sent successfully!';
                 formStatus.style.color = 'green';

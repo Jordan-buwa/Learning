@@ -195,3 +195,10 @@ footer {
     margin-right: 8px;
     margin-bottom: 8px;
 }
+
+/* Add this to your existing CSS */
+#formStatus {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
